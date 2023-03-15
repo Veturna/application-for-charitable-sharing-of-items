@@ -18,8 +18,18 @@ class LandingPage(View):
         #supported_institutions = donation.distinct('institution').count()
         supported_institutions = len([d.institution for d in donation])
 
+        foundations = Institution.objects.filter(type=1)
+        ngos = Institution.objects.filter(type=2)
+        locals = Institution.objects.filter(type=3)
+
+
+
+
+
         return render(request, "index.html", {"total_donations": total_donations,
-                                              "supported_institutions": supported_institutions})
+                                              "supported_institutions": supported_institutions,
+                                              "foundations": foundations, "ngos": ngos, "locals": locals }
+                      )
 
 
 class AddDonation(View):

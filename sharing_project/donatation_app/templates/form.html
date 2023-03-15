@@ -290,5 +290,6 @@
     </section>
 {% endblock %}
 
-    <script src="{% static 'js/app.js' %}"></script>
-
+{% block js %}
+    <script src={% static 'js/app.js' %}></script>
+{% endblock %}
