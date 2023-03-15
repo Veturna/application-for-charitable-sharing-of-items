@@ -11,19 +11,23 @@
 <body>
     <header class="header--main-page">
       <nav class="container container--70">
+{% block welcome %}
         <ul class="nav--actions">
-          <li><a href="{% url 'login' %}">Zaloguj</a></li>
-          <li class="highlighted"><a href="{% url 'register' %}">Załóż konto</a></li>
+          <li><a href="{% url 'login' %}" class="btn btn--small btn--without-border">Zaloguj</a></li>
+          <li class="highlighted"><a href="{% url 'register' %}" class="btn btn--small btn--highlighted">Załóż konto</a></li>
         </ul>
-
+{% endblock %}
         <ul>
-          <li><a href="{% url 'landing-page' %}">Start</a></li>
-          <li><a href="{% url 'landing-page' %}#steps">O co chodzi?</a></li>
-          <li><a href="{% url 'landing-page' %}#about-us">O nas</a></li>
-          <li><a href="{% url 'landing-page' %}#help">Fundacje i organizacje</a></li>
-          <li><a href="#contact">Kontakt</a></li>
+          <li><a href="{% url 'landing-page' %}" class="btn btn--without-border active">Start</a></li>
+          <li><a href="{% url 'landing-page' %}#steps" class="btn btn--without-border">O co chodzi?</a></li>
+          <li><a href="{% url 'landing-page' %}#about-us" class="btn btn--without-border">O nas</a></li>
+          <li><a href="{% url 'landing-page' %}#help" class="btn btn--without-border">Fundacje i organizacje</a></li>
+          <li><a href="{% url 'add-donation' %}" class="btn btn--without-border">Przekaż dary</a></li>
+          <li><a href="#contact" class="btn btn--without-border">Kontakt</a></li>
         </ul>
       </nav>
+      {% block title %}
+      {% endblock %}
     </header>
 
 {% block content %}

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
-        <ul class="nav--actions">
+{% block welcome %}
+       <ul class="nav--actions">
           <li class="logged-user">
             Witaj Agata
             <ul class="dropdown">
@@ -10,10 +11,8 @@
             </ul>
           </li>
         </ul>
-
-          <li><a href="form.html" class="btn btn--without-border">Przekaż dary</a></li>
-
-
+{% endblock %}
+{% block title %}
       <div class="slogan container container--90">
         <div class="slogan--item">
           <h1>
@@ -40,6 +39,7 @@
           </div>
         </div>
       </div>
+{% endblock %}
 
 {% block content %}
     <section class="form--steps">
