@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import View
+from django.db.models import Sum
 
 from donatation_app.models import Donation, Institution
 
@@ -7,7 +8,18 @@ from donatation_app.models import Donation, Institution
 class LandingPage(View):
     def get(self, request):
         donation = Donation.objects.all()
-        return render(request, "index.html", {"donation": donation})
+        #total_donations = donation.aggregate(Sum('quantity'))['quantity__sum'] or 0
+        total_donations = 0
+        for d in donation:
+            if d.quantity == 0:
+                total_donations = 0
+            total_donations += d.quantity
+
+        #supported_institutions = donation.distinct('institution').count()
+        supported_institutions = len([d.institution for d in donation])
+
+        return render(request, "index.html", {"total_donations": total_donations,
+                                              "supported_institutions": supported_institutions})
 
 
 class AddDonation(View):
