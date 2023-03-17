@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from django.db.models import Sum
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 
 from donatation_app.models import Donation, Institution
@@ -33,7 +33,10 @@ class LandingPage(View):
 
 class AddDonation(View):
     def get(self, request):
-        return render(request, "form.html")
+        if request.user.is_authenticated:
+            return render(request, "form.html", {"user": request.user})
+        else:
+            return render(request, "form.html")
 
 
 class Login(View):
