@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 
-from donatation_app.models import Donation, Institution
+from donatation_app.models import Donation, Institution, Category
 
 
 class LandingPage(View):
@@ -34,7 +34,8 @@ class LandingPage(View):
 class AddDonation(View):
     def get(self, request):
         if request.user.is_authenticated:
-            return render(request, "form.html", {"user": request.user})
+            category = Category.objects.all()
+            return render(request, "form.html", {"user": request.user, "category": category})
         else:
             return render(request, "form.html")
 
