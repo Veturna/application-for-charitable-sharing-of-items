@@ -9,7 +9,7 @@
               <li><a href="#">Profil</a></li>
               <li><a href="#">Ustawienia</a></li>
               {% if user.is_superuser %}
-              <li><a href="#">Panel administracyjny</a></li>
+              <li><a href="/admin/">Panel administracyjny</a></li>
               {% endif %}
               <li><a href="{% url 'logout' %}?next={% url 'landing-page' %}">Wyloguj</a></li>
             </ul>

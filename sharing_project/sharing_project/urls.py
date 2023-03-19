@@ -20,7 +20,7 @@ from django.contrib.auth.views import LogoutView
 from donatation_app.views import LandingPage, Login, Register, AddDonation
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, ),
     path('', LandingPage.as_view(), name='landing-page'),
     path('login/', Login.as_view(), name='login'),
     path('register/', Register.as_view(), name='register'),
