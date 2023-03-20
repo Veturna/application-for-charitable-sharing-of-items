@@ -78,4 +78,9 @@ class Register(View):
 
         return render(request, 'register.html')
 
+class Profile(View):
+    def get(self, request):
+        user = request.user
+        return render(request, 'profile.html', {'user': user})
+
 
