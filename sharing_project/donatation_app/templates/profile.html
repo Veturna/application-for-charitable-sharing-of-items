@@ -4,8 +4,12 @@
 <div class="slogan container container--90">
         <div class="slogan--item">
           <h1>
-            Profil użytkownika {{user.username}}<br />
+            Profil użytkownika {{user.first_name}}<br />
           </h1>
         </div>
       </div>
+{% endblock %}
+{% block content %}
+{% csrf_token %}
+{{ form.as_p }}
 {% endblock %}

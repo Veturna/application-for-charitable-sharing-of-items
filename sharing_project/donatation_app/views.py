@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 
 from donatation_app.models import Donation, Institution, Category
+from donatation_app.form import ProfileForm
 
 
 class LandingPage(View):
@@ -81,6 +82,12 @@ class Register(View):
 class Profile(View):
     def get(self, request):
         user = request.user
-        return render(request, 'profile.html', {'user': user})
+        form = ProfileForm(initial = {
+            'name': user.first_name,
+            'surname': user.last_name,
+            'email': user.username
+        })
+
+        return render(request, 'profile.html', {'user': user, 'form': form})
 
 
