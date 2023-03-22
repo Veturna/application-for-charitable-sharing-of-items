@@ -254,6 +254,24 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
 
+  fetch ('http://localhost:8000/institution/')
+      .then(response => response.json())
+      .then(data => {
+        const institutions = data
+        const institutionsSpan = document.querySelector('#organization')
+
+        institutions.forEach(institution => {
+          const divTitle = document.createElement('div')
+          divTitle.classList.add('title')
+          divTitle.innerText = institution.name
+          const divSubtitle = document.createElement('div')
+          divSubtitle.classList.add('subtitle')
+          divSubtitle.innerText = institution.description
+          institutionsSpan.appendChild(divTitle)
+          institutionsSpan.addEventListener(divSubtitle)
+        })
+      })
+      .catch(error => console.error(error))
 
 });
 
