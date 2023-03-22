@@ -127,7 +127,7 @@
 
             <div class="form-group form-group--checkbox">
               {% for institution in institutions %}
-              <label data-category="{{ institution.get_category_display }}">
+              <label data-category="{{ institution.category }}">
                 <input type="radio" name="organization" value="old" />
                 <span class="checkbox radio"></span>
                 <span class="description" id="organizations">

@@ -253,27 +253,20 @@ document.addEventListener("DOMContentLoaded", function() {
     new FormSteps(form);
   }
 
+  const organizationsDiv =  document.querySelector('#organizations')
 
-  fetch ('http://localhost:8000/institution/')
-      .then(response => response.json())
-      .then(data => {
-        const institutions = data
-        const organizationDiv = document.querySelector('#organizations')
-
-        institutions.forEach(institution => {
-          const divTitle = document.createElement('div')
-          divTitle.classList.add('title')
-          divTitle.innerText = institution.name
-
-          const divSubtitle = document.createElement('div')
-          divSubtitle.classList.add('subtitle')
-          divSubtitle.innerText = institution.description
-
-          divTitle.appendChild(divSubtitle)
-          organizationDiv.appendChild(divTitle)
-        })
+  document.querySelectorAll('input[name="organization"]').forEach(input => {
+    input.addEventListener('change', () => {
+      const selectedCategory = input.closest('label').getAttribute('data-category')
+      organizationsDiv.querySelectorAll('label').forEach(label => {
+        if (label.getAttribute('data-category') === selectedCategory) {
+          label.style.display = 'block'
+        } else {
+          label.style.display = 'none'
+        }
       })
-      .catch(error => console.error(error))
+    })
+  })
 
 });
 
