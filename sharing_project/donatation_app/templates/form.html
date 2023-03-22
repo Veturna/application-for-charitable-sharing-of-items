@@ -82,7 +82,7 @@
 
             <div class="form-group form-group--checkbox">
               {% for cat in category %}
-              <label>
+              <label data-category="{{ cat.name }}">}
                 <input
                   type="checkbox"
                   name="categories"
@@ -90,8 +90,7 @@
                 />
                 <span class="checkbox"></span>
                 <span class="description"
-                  >{{ cat.name }}</span
-                >
+                  >{{ cat.name }}</span>
               </label>
               {% endfor %}
             </div>

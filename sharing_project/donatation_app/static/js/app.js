@@ -225,6 +225,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
       // TODO: Validation
 
+
+
       this.slides.forEach(slide => {
         slide.classList.remove("active");
 
@@ -256,15 +258,12 @@ document.addEventListener("DOMContentLoaded", function() {
     new FormSteps(form);
   }
 
-
   const organizationsDiv = document.querySelector('#organizations');
-  const radioButtons = document.querySelectorAll('input[name="organization"]');
+  const radioButtons = document.querySelectorAll('input[name="categories"]');
 
   radioButtons.forEach(radioButton => {
     radioButton.addEventListener('change', event => {
       const selectedCategory = event.target.closest('label').getAttribute('data-category');
-      console.log('Wybrana kategoria to:', selectedCategory);
-
 
       organizationsDiv.querySelectorAll('label').forEach(label => {
         if (label.getAttribute('data-category').includes(selectedCategory)) {
