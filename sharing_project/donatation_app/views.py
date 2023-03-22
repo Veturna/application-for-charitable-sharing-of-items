@@ -6,10 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from django.core.paginator import Paginator
 
-from django.http import Http404
-from rest_framework import status
-from rest_framework.views import APIView
-from rest_framework.response import Response
+from rest_framework import generics
 
 from .serializers import InstitutionSerializer
 from .models import Donation, Institution, Category
@@ -99,4 +96,8 @@ class Profile(View):
 
         return render(request, 'profile.html', {'user': user, 'form': form})
 
+
+class InstitutionView(generics.ListCreateAPIView):
+    queryset = Institution.objects.all()
+    serializer_class = InstitutionSerializer
 
