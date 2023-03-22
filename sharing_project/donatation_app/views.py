@@ -67,9 +67,10 @@ class AddDonation(View):
                                     user=user)
             donation.save()
 
-            url reverse()
+            url = reverse('confirmation')
+            return redirect(url)
         except Exception:
-            pass
+            return render(request, "form.html")
 
 
 class Login(View):
