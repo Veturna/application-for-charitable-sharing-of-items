@@ -6,8 +6,14 @@ from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from django.core.paginator import Paginator
 
-from donatation_app.models import Donation, Institution, Category
-from donatation_app.form import ProfileForm
+from django.http import Http404
+from rest_framework import status
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+from .serializers import InstitutionSerializer
+from .models import Donation, Institution, Category
+from .form import ProfileForm
 
 
 class LandingPage(View):
