@@ -47,6 +47,29 @@ class AddDonation(View):
         else:
             return render(request, "form.html")
 
+    def post(self, request):
+        address = request.POST.get('address')
+        city = request.POST.get('city')
+        postcode = request.POST.get('postcode')
+        phone = request.POST.get('phone')
+        data = request.POST.get('data')
+        time = request.POST.get('time')
+        more_info = request.POST.get('more_info')
+        quantity = request.POST.get('bags')
+        categories = request.POST.get('categories')
+        organization = request.POST.get('organization')
+        user = request.user
+
+        try:
+            donation = Donation.objects.create(quantity=quantity, categories=categories, institution=organization,
+                                    address = address, phone_number=phone, city=city, zip_code=postcode,
+                                    pick_up_date = data, pick_up_time=time, pick_up_comment=more_info,
+                                    user=user)
+            donation.save()
+
+            url reverse()
+        except Exception:
+            pass
 
 
 class Login(View):
