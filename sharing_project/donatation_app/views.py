@@ -126,3 +126,8 @@ class InstitutionView(generics.ListCreateAPIView):
     queryset = Institution.objects.all()
     serializer_class = InstitutionSerializer
 
+
+class Confirmation(View):
+    def get(self, request):
+        return render(request, 'form-confirmation.html')
+
