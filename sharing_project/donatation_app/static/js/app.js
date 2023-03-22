@@ -258,17 +258,19 @@ document.addEventListener("DOMContentLoaded", function() {
       .then(response => response.json())
       .then(data => {
         const institutions = data
-        const institutionsSpan = document.querySelector('#organization')
+        const organizationDiv = document.querySelector('#organizations')
 
         institutions.forEach(institution => {
           const divTitle = document.createElement('div')
           divTitle.classList.add('title')
           divTitle.innerText = institution.name
+
           const divSubtitle = document.createElement('div')
           divSubtitle.classList.add('subtitle')
           divSubtitle.innerText = institution.description
-          institutionsSpan.appendChild(divTitle)
-          institutionsSpan.addEventListener(divSubtitle)
+
+          divTitle.appendChild(divSubtitle)
+          organizationDiv.appendChild(divTitle)
         })
       })
       .catch(error => console.error(error))

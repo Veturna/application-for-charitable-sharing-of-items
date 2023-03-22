@@ -29,7 +29,7 @@ class LandingPage(View):
         ngos = Institution.objects.filter(type=2)
         locals = Institution.objects.filter(type=3)
 
-        p_foundations = Paginator(foundations, 5)
+        #p_foundations = Paginator(foundations, 5)
 
         return render(request, "index.html", {"total_donations": total_donations,
                                               "supported_institutions": supported_institutions,
@@ -42,7 +42,8 @@ class AddDonation(View):
     def get(self, request):
         if request.user.is_authenticated:
             category = Category.objects.all()
-            return render(request, "form.html", {"user": request.user, "category": category})
+            institutions = Institution.objects.all()
+            return render(request, "form.html", {"user": request.user, "category": category, 'institutions': institutions})
         else:
             return render(request, "form.html")
 
