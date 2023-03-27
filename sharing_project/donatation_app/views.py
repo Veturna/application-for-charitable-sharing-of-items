@@ -56,14 +56,19 @@ class AddDonation(View):
             more_info = request.POST.get('more_info')
             quantity = request.POST.get('bags')
             categories = request.POST.get('categories')
-            organization = request.POST.get('organization')
+            organization = request.POST.get('organization-name')
             user = request.user
 
-            donation = Donation.objects.create(quantity=quantity, categories=categories, institution=organization,
-                                    address = address, phone_number=phone, city=city, zip_code=postcode,
-                                    pick_up_date = data, pick_up_time=time, pick_up_comment=more_info,
-                                    user=user)
+            institution = Institution.objects.get(name=organization)
+
+            donation = Donation.objects.create(quantity=quantity, address = address, phone_number=phone,
+                                               city=city, zip_code=postcode, pick_up_date = data, pick_up_time=time,
+                                               pick_up_comment=more_info, user=user)
             donation.save()
+
+            for category in categories:
+                category = Category.objects.get(name=category)
+                donation.categories.add(category)
 
             url = reverse('confirm')
             return redirect(url)

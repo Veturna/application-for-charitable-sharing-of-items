@@ -218,7 +218,7 @@ document.addEventListener("DOMContentLoaded", function() {
       });
 
       // Form submit
-      this.$form.querySelector("form").addEventListener("submit", e => this.submit(e));
+      //this.$form.querySelector("form").addEventListener("submit", e => this.submit(e));
     }
 
     /**
@@ -262,7 +262,6 @@ document.addEventListener("DOMContentLoaded", function() {
     new FormSteps(form);
   }
 
-  const organizationsDiv = document.querySelector('#organizations');
   const radioButtons = document.querySelectorAll('input[name="categories"]');
   const nextButton = document.querySelector('#next')
   const arrayCategory = [];
@@ -283,10 +282,11 @@ document.addEventListener("DOMContentLoaded", function() {
   })
 
   nextButton.addEventListener('click', event => {
-    console.log('test')
-    organizationsDiv.querySelectorAll('label').forEach(label => {
-      console.log('test2')
+    const labels = document.querySelectorAll('label[data-category]')
+    console.log(labels)
+    labels.forEach(label => {
       const institutionCategories = label.getAttribute('data-category').split(',').filter(Boolean).map(categoryID => parseInt(categoryID))
+      console.log(institutionCategories)
       console.log('kategoria2', institutionCategories)
       const isMatching = institutionCategories.some(categoryID => arrayCategory.includes(categoryID))
       label.style.display = isMatching ? 'block' : 'none'
@@ -316,7 +316,6 @@ document.addEventListener("DOMContentLoaded", function() {
   const selectedInfo = document.querySelector('textarea[name="more_info"]').value
 
   const confirmationButton = document.querySelector('#confirm')
-  console.error(confirmationButton);
   const summaryText = document.querySelectorAll('.summary--text');
   const summaryList = document.querySelectorAll('.summary--list')
 
