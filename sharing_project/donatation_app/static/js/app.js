@@ -297,31 +297,40 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   })
 
-
-  const bagsQuantity = document.querySelectorAll('input[name="bags"]').value
+  const bagsQuantity = document.querySelector('input[name="bags"]').value
 
   const organization = document.querySelector('input[name="organization"]:checked')
   const selectedOrganization = organization ? organization.getAttribute("data-category") : null
 
-  const selectedStreet = document.querySelectorAll('input[name="address"]').value
-  const selectedCity = document.querySelectorAll('input[name="city"]').value
-  const selectedPostcode = document.querySelectorAll('input[name="postcode"]').value
-  const selectedPhone = document.querySelectorAll('input[name="phone"]').value
-  const selectedDate= document.querySelectorAll('input[name="data"]').value
-  const selectedTime = document.querySelectorAll('input[name="time"]').value
-  const selectedInfo = document.querySelectorAll('textarea[name="more_info"]').value
+  const selectedStreet = document.querySelector('input[name="address"]').value
+  const selectedCity = document.querySelector('input[name="city"]').value
+  const selectedPostcode = document.querySelector('input[name="postcode"]').value
+  const selectedPhone = document.querySelector('input[name="phone"]').value
+  const selectedDate= document.querySelector('input[name="data"]').value
+  const selectedTime = document.querySelector('input[name="time"]').value
+  const selectedInfo = document.querySelector('textarea[name="more_info"]').value
 
   const confirmationButton = document.querySelector('#confirm')
   const summaryText = document.querySelectorAll('.summary--text');
+  const summaryList = document.querySelectorAll('.summary--list')
 
   confirmationButton.addEventListener('click', event => {
     console.log('test potwierdzenia')
     let text = ""
     if (selectedCategories.length > 0) {
-      text = selectedCategories.join(", ")
-      summaryText[0].textContent = '${bagsQuantity} worków z kategorii: ${text}'
+      text = selectedCategories.join(', ')
+      summaryText[0].textContent = `${bagsQuantity} worków z kategorii: ${text}`
     }
-    summaryText[1].textContent = 'Dla fundacji "${selectedOrganization}"'
+    summaryText[1].textContent = `Dla fundacji ${selectedOrganization}`
+
+    const newLi1 = document.createElement("li")
+    const newLi2 = document.createElement("li")
+    const newLi3 = document.createElement("li")
+    const newLi4 = document.createElement("li")
+    summaryList[0].appendChild(newLi1).textContent = `Telefon: ${selectedPhone}`
+    summaryList[0].insertBefore(newLi2, newLi1).textContent = `Kod pocztowy: ${selectedPostcode}`
+    summaryList[0].insertBefore(newLi3, newLi2).textContent = `Miasto: ${selectedCity}`
+    summaryList[0].insertBefore(newLi4, newLi3).textContent = `Ulica: ${selectedStreet}`
 
 
   })
