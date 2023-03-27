@@ -226,7 +226,6 @@ document.addEventListener("DOMContentLoaded", function() {
       // TODO: Validation
 
 
-
       this.slides.forEach(slide => {
         slide.classList.remove("active");
 
@@ -260,20 +259,60 @@ document.addEventListener("DOMContentLoaded", function() {
 
   const organizationsDiv = document.querySelector('#organizations');
   const radioButtons = document.querySelectorAll('input[name="categories"]');
+  const nextButton = document.querySelector('#next')
+  const arrayCategory = [];
 
   radioButtons.forEach(radioButton => {
     radioButton.addEventListener('change', event => {
-      const selectedCategory = event.target.closest('label').getAttribute('data-category');
-
-      organizationsDiv.querySelectorAll('label').forEach(label => {
-        if (label.getAttribute('data-category').includes(selectedCategory)) {
-          label.style.display = 'block';
-        } else {
-          label.style.display = 'none';
+      const selectedCategory = event.target.closest('label').getAttribute('data-categories')
+      if (event.target.checked) {
+        arrayCategory.push(parseInt(selectedCategory))
+      } else {
+        const index = arrayCategory.indexOf(parseInt(selectedCategory))
+        if (index !== -1) {
+          arrayCategory.splice(index, 1)
         }
-      });
-    });
-  });
+      }
+      console.log('kategoria:', arrayCategory)
+    })
+  })
+
+  nextButton.addEventListener('click', event => {
+    console.log('test')
+    organizationsDiv.querySelectorAll('label').forEach(label => {
+      console.log('test2')
+      const institutionCategories = label.getAttribute('data-category').split(',').filter(Boolean).map(categoryID => parseInt(categoryID))
+      console.log('kategoria2', institutionCategories)
+      const isMatching = institutionCategories.some(categoryID => arrayCategory.includes(categoryID))
+      label.style.display = isMatching ? 'block' : 'none'
+    })
+  })
+
+  const checkboxes = document.querySelectorAll('input[name="categories"]')
+  const selectedCategories = []
+
+  checkboxes.forEach(checkbox => {
+    if (checkbox.checked) {
+      selectedCategories.push(checkbox.value)
+    }
+  })
+
+  const bagsQuantity = document.querySelectorAll('input[name="bags"]').value
+
+  const organization = document.querySelector('input[name="organization"]:checked')
+  const selectedOrganization = organization ? organization.getAttribute("data-category") : null
+
+  const selectedStreet = document.querySelectorAll('input[name="address"]').value
+  const selectedCity = document.querySelectorAll('input[name="city"]').value
+  const selectedPostcode = document.querySelectorAll('input[name="postcode"]').value
+  const selectedPhone = document.querySelectorAll('input[name="phone"]').value
+  const selectedDate= document.querySelectorAll('input[name="data"]').value
+  const selectedTime = document.querySelectorAll('input[name="time"]').value
+  const selectedInfo = document.querySelectorAll('textarea[name="more_info"]').value
+
+
 });
+
+
 
 

@@ -1,10 +1,9 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
 from django.views import View
-from django.db.models import Sum
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login
 from django.urls import reverse
-from django.core.paginator import Paginator
+
 
 from rest_framework import generics
 
@@ -29,7 +28,6 @@ class LandingPage(View):
         ngos = Institution.objects.filter(type=2)
         locals = Institution.objects.filter(type=3)
 
-        #p_foundations = Paginator(foundations, 5)
 
         return render(request, "index.html", {"total_donations": total_donations,
                                               "supported_institutions": supported_institutions,

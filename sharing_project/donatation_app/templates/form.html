@@ -78,11 +78,9 @@
           <!-- STEP 1: class .active is switching steps -->
           <div data-step="1" class="active">
             <h3>Zaznacz co chcesz oddać:</h3>
-
-
             <div class="form-group form-group--checkbox">
               {% for cat in category %}
-              <label data-category="{{ cat.name }}">}
+              <label data-categories="{{ cat.id }}">
                 <input
                   type="checkbox"
                   name="categories"
@@ -114,7 +112,7 @@
 
             <div class="form-group form-group--buttons">
               <button type="button" class="btn prev-step">Wstecz</button>
-              <button type="button" class="btn next-step">Dalej</button>
+              <button type="button" class="btn next-step" id="next">Dalej</button>
             </div>
           </div>
 
@@ -123,13 +121,12 @@
           <!-- STEP 3 -->
           <div data-step="3">
             <h3>Wybierz organizacje, której chcesz pomóc:</h3>
-
             <div class="form-group form-group--checkbox">
               {% for institution in institutions %}
-              <label data-category="{{ institution.category.all }}">
-                <input type="radio" name="organization" value="old" />
+              <label data-category="{% for c in institution.category.all %}{{ c.id }}, {% endfor %}">
+                <input type="radio" name="organization" value="old" id="organizations" />
                 <span class="checkbox radio"></span>
-                <span class="description" id="organizations">
+                <span class="description">
                   <div class="title">{{ institution.name }}</div>
                   <div class="subtitle">{{ institution.description }}</div>
                 </span>
@@ -206,14 +203,14 @@
                   <li>
                     <span class="icon icon-bag"></span>
                     <span class="summary--text"
-                      >4 worki ubrań w dobrym stanie dla dzieci</span
+                      ></span
                     >
                   </li>
 
                   <li>
                     <span class="icon icon-hand"></span>
                     <span class="summary--text"
-                      >Dla fundacji "Mam marzenie" w Warszawie</span
+                      >Dla fundacji </span
                     >
                   </li>
                 </ul>
@@ -223,19 +220,19 @@
                 <div class="form-section--column">
                   <h4>Adres odbioru:</h4>
                   <ul>
-                    <li>Prosta 51</li>
-                    <li>Warszawa</li>
-                    <li>99-098</li>
-                    <li>123 456 789</li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
                   </ul>
                 </div>
 
                 <div class="form-section--column">
                   <h4>Termin odbioru:</h4>
                   <ul>
-                    <li>13/12/2018</li>
-                    <li>15:40</li>
-                    <li>Brak uwag</li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
                   </ul>
                 </div>
               </div>
