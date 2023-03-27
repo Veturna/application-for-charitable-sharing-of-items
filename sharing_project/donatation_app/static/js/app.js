@@ -297,6 +297,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   })
 
+
   const bagsQuantity = document.querySelectorAll('input[name="bags"]').value
 
   const organization = document.querySelector('input[name="organization"]:checked')
@@ -309,6 +310,22 @@ document.addEventListener("DOMContentLoaded", function() {
   const selectedDate= document.querySelectorAll('input[name="data"]').value
   const selectedTime = document.querySelectorAll('input[name="time"]').value
   const selectedInfo = document.querySelectorAll('textarea[name="more_info"]').value
+
+  const confirmationButton = document.querySelector('#confirm')
+  const summaryText = document.querySelectorAll('.summary--text');
+
+  confirmationButton.addEventListener('click', event => {
+    console.log('test potwierdzenia')
+    let text = ""
+    if (selectedCategories.length > 0) {
+      text = selectedCategories.join(", ")
+      summaryText[0].textContent = '${bagsQuantity} worków z kategorii: ${text}'
+    }
+    summaryText[1].textContent = 'Dla fundacji "${selectedOrganization}"'
+
+
+  })
+
 
 
 });
