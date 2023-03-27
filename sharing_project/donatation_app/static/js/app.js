@@ -197,9 +197,14 @@ document.addEventListener("DOMContentLoaded", function() {
       // Next step
       this.$next.forEach(btn => {
         btn.addEventListener("click", e => {
+          if (this.currentStep !== 5) {
           e.preventDefault();
           this.currentStep++;
           this.updateForm();
+          } else {
+            e.preventDefault()
+            this.$form.querySelector("form").addEventListener("submit", e => this.submit(e));
+          }
         });
       });
 
@@ -311,6 +316,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const selectedInfo = document.querySelector('textarea[name="more_info"]').value
 
   const confirmationButton = document.querySelector('#confirm')
+  console.error(confirmationButton);
   const summaryText = document.querySelectorAll('.summary--text');
   const summaryList = document.querySelectorAll('.summary--list')
 

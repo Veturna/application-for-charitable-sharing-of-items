@@ -11,5 +11,13 @@
 {% endblock %}
 {% block content %}
 {% csrf_token %}
-{{ form.as_p }}
+<h2>{{ form.as_p }}</h2>
+
+<h2>Przekazane dotacje</h2>
+{% for donation in donations %}
+<li>{{ donation.pk }}</li>
+<li>Ilość przekazanych worków: {{ donation.quantity }} z kategorii: {{ donation.categories.all }}</li>
+<li>Wsparta organizacja {{ donation.institution }}</li>
+<li>Data i godzina odbioru {{ donation.date }} - {{ donation.time }} </li>
+{% endfor %}
 {% endblock %}

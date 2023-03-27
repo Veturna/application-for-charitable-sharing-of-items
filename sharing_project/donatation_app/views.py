@@ -46,26 +46,29 @@ class AddDonation(View):
             return render(request, "form.html")
 
     def post(self, request):
-        address = request.POST.get('address')
-        city = request.POST.get('city')
-        postcode = request.POST.get('postcode')
-        phone = request.POST.get('phone')
-        data = request.POST.get('data')
-        time = request.POST.get('time')
-        more_info = request.POST.get('more_info')
-        quantity = request.POST.get('bags')
-        categories = request.POST.get('categories')
-        organization = request.POST.get('organization')
-        user = request.user
+        if request.user.is_authenticated:
+            address = request.POST.get('address')
+            city = request.POST.get('city')
+            postcode = request.POST.get('postcode')
+            phone = request.POST.get('phone')
+            data = request.POST.get('data')
+            time = request.POST.get('time')
+            more_info = request.POST.get('more_info')
+            quantity = request.POST.get('bags')
+            categories = request.POST.get('categories')
+            organization = request.POST.get('organization')
+            user = request.user
 
-        donation = Donation.objects.create(quantity=quantity, categories=categories, institution=organization,
+            donation = Donation.objects.create(quantity=quantity, categories=categories, institution=organization,
                                     address = address, phone_number=phone, city=city, zip_code=postcode,
                                     pick_up_date = data, pick_up_time=time, pick_up_comment=more_info,
                                     user=user)
-        donation.save()
+            donation.save()
 
-        url = reverse('confirm')
-        return redirect(url)
+            url = reverse('confirm')
+            return redirect(url)
+        else:
+            return render(request, "form.html")
 
 
 class Login(View):
@@ -106,6 +109,7 @@ class Register(View):
 
         return render(request, 'register.html')
 
+
 class Profile(View):
     def get(self, request):
         user = request.user
@@ -114,16 +118,15 @@ class Profile(View):
             'surname': user.last_name,
             'email': user.username
         })
+        donations = Donation.objects.filter(user=user)
 
-        return render(request, 'profile.html', {'user': user, 'form': form})
-
-
-class InstitutionView(generics.ListCreateAPIView):
-    queryset = Institution.objects.all()
-    serializer_class = InstitutionSerializer
+        return render(request, 'profile.html', {'user': user, 'form': form, 'donations':donations})
 
 
 class AddDonationConfirmation(View):
     def get(self, request):
         return render(request, 'form-confirmation.html')
 
+class InstitutionView(generics.ListCreateAPIView):
+    queryset = Institution.objects.all()
+    serializer_class = InstitutionSerializer
