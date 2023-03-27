@@ -319,26 +319,24 @@ document.addEventListener("DOMContentLoaded", function() {
     let text = ""
     if (selectedCategories.length > 0) {
       text = selectedCategories.join(', ')
-      summaryText[0].textContent = `${bagsQuantity} worków z kategorii: ${text}`
     }
+    summaryText[0].textContent = `${bagsQuantity} worków z kategorii: ${text}`
     summaryText[1].textContent = `Dla fundacji ${selectedOrganization}`
 
     const newLi1 = document.createElement("li")
     const newLi2 = document.createElement("li")
     const newLi3 = document.createElement("li")
     const newLi4 = document.createElement("li")
+    const newLi5 = document.createElement("li")
+    const newLi6 = document.createElement("li")
+    const newLi7 = document.createElement("li")
     summaryList[0].appendChild(newLi1).textContent = `Telefon: ${selectedPhone}`
     summaryList[0].insertBefore(newLi2, newLi1).textContent = `Kod pocztowy: ${selectedPostcode}`
     summaryList[0].insertBefore(newLi3, newLi2).textContent = `Miasto: ${selectedCity}`
     summaryList[0].insertBefore(newLi4, newLi3).textContent = `Ulica: ${selectedStreet}`
 
-
-  })
-
-
-
+    summaryList[1].appendChild(newLi5).textContent = `Uwagi: ${selectedInfo}`
+    summaryList[1].insertBefore(newLi6, newLi5).textContent = `Godzina: ${selectedTime}`
+    summaryList[1].insertBefore(newLi7, newLi6).textContent = `Data: ${selectedDate}`
+  });
 });
-
-
-
-
