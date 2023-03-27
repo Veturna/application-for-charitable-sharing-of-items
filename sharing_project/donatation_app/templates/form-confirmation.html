@@ -3,12 +3,20 @@
 {% block welcome %}
 <ul class="nav--actions">
           <li class="logged-user">
-            Witaj Agata
+            {% if user.is_authenticated %}
+            Witaj {{ user.username }}
             <ul class="dropdown">
-              <li><a href="#">Profil</a></li>
-              <li><a href="#">Moje zbiórki</a></li>
-              <li><a href="#">Wyloguj</a></li>
+              <li><a href="{% url 'profile' %}">Profil</a></li>
+              <li><a href="#">Ustawienia</a></li>
+              {% if user.is_superuser %}
+              <li><a href="/admin/">Panel administracyjny</a></li>
+              {% endif %}
+              <li><a href="{% url 'logout' %}?next={% url 'landing-page' %}">Wyloguj</a></li>
             </ul>
+            {% else %}
+            <li><a href="{% url 'login' %}" class="btn btn--small btn--without-border">Zaloguj</a></li>
+            <li class="highlighted"><a href="{% url 'register' %}" class="btn btn--small btn--highlighted">Załóż konto</a></li>
+            {% endif %}
           </li>
         </ul>
 {% endblock %}

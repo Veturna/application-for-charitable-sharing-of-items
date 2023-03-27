@@ -58,17 +58,14 @@ class AddDonation(View):
         organization = request.POST.get('organization')
         user = request.user
 
-        try:
-            donation = Donation.objects.create(quantity=quantity, categories=categories, institution=organization,
+        donation = Donation.objects.create(quantity=quantity, categories=categories, institution=organization,
                                     address = address, phone_number=phone, city=city, zip_code=postcode,
                                     pick_up_date = data, pick_up_time=time, pick_up_comment=more_info,
                                     user=user)
-            donation.save()
+        donation.save()
 
-            url = reverse('confirmation')
-            return redirect(url)
-        except Exception:
-            return render(request, "form.html")
+        url = reverse('confirm')
+        return redirect(url)
 
 
 class Login(View):
@@ -126,7 +123,7 @@ class InstitutionView(generics.ListCreateAPIView):
     serializer_class = InstitutionSerializer
 
 
-class Confirmation(View):
+class AddDonationConfirmation(View):
     def get(self, request):
         return render(request, 'form-confirmation.html')
 

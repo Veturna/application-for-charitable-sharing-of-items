@@ -74,7 +74,8 @@
       <div class="form--steps-container">
         <div class="form--steps-counter">Krok <span>1</span>/5</div>
 
-        <form action="form-confirmation.html" method="post">
+        <form method="post">
+          {% csrf_token %}
           <!-- STEP 1: class .active is switching steps -->
           <div data-step="1" class="active">
             <h3>Zaznacz co chcesz oddać:</h3>
@@ -92,7 +93,6 @@
               </label>
               {% endfor %}
             </div>
-
 
             <div class="form-group form-group--buttons">
               <button type="button" class="btn next-step">Dalej</button>
@@ -188,7 +188,7 @@
             </div>
             <div class="form-group form-group--buttons">
               <button type="button" class="btn prev-step">Wstecz</button>
-              <button id="confirm" type="button" class="btn next-step">Dalej</button>
+              <button type="button" class="btn next-step">Dalej</button>
             </div>
           </div>
 
@@ -220,14 +220,12 @@
                 <div class="form-section--column">
                   <h4>Adres odbioru:</h4>
                   <ul class="summary--list">
-
                   </ul>
                 </div>
 
                 <div class="form-section--column">
                   <h4>Termin odbioru:</h4>
                   <ul class="summary--list">
-
                   </ul>
                 </div>
               </div>
@@ -235,7 +233,7 @@
 
             <div class="form-group form-group--buttons">
               <button type="button" class="btn prev-step">Wstecz</button>
-              <button type="submit" class="btn">Potwierdzam</button>
+              <button class="btn" type="submit"></button>
             </div>
           </div>
         </form>
