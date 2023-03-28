@@ -4,10 +4,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.urls import reverse
 
-
-from rest_framework import generics
-
-from .serializers import InstitutionSerializer
 from .models import Donation, Institution, Category
 from .form import ProfileForm
 
@@ -131,7 +127,3 @@ class Profile(View):
 class AddDonationConfirmation(View):
     def get(self, request):
         return render(request, 'form-confirmation.html')
-
-class InstitutionView(generics.ListCreateAPIView):
-    queryset = Institution.objects.all()
-    serializer_class = InstitutionSerializer
