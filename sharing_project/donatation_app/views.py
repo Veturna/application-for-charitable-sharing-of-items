@@ -57,8 +57,9 @@ class AddDonation(View):
             categories = request.POST.get('categories')
             organization = request.POST.get('organization')
             
+            print(categories)
+            
             user = request.user
-            print(organization)
             
             institution = Institution.objects.get(pk=organization)
         
@@ -68,8 +69,8 @@ class AddDonation(View):
                                                pick_up_comment=more_info, user=user)
             donation.save()
 
-            for category[0] in categories:
-                selected_category = Category.objects.get(pk=category)
+            for category in categories:
+                selected_category = Category.objects.get(id=category)
                 donation.categories.add(selected_category)
 
             url = reverse('confirm')
