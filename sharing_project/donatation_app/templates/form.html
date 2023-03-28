@@ -1,87 +1,78 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block welcome %}
-       <ul class="nav--actions">
-          <li class="logged-user">
-            {% if user.is_authenticated %}
-            Witaj {{ user.username }}
-            <ul class="dropdown">
-              <li><a href="{% url 'profile' %}">Profil</a></li>
-              <li><a href="#">Ustawienia</a></li>
-              {% if user.is_superuser %}
-              <li><a href="/admin/">Panel administracyjny</a></li>
-              {% endif %}
-              <li><a href="{% url 'logout' %}?next={% url 'landing-page' %}">Wyloguj</a></li>
-            </ul>
-            {% else %}
-            <li><a href="{% url 'login' %}" class="btn btn--small btn--without-border">Zaloguj</a></li>
-            <li class="highlighted"><a href="{% url 'register' %}" class="btn btn--small btn--highlighted">Załóż konto</a></li>
+{% extends 'base.html' %} {% load static %} {% block welcome %}
+<ul class="nav--actions">
+    <li class="logged-user">
+        {% if user.is_authenticated %} Witaj {{ user.username }}
+        <ul class="dropdown">
+            <li><a href="{% url 'profile' %}">Profil</a></li>
+            <li><a href="#">Ustawienia</a></li>
+            {% if user.is_superuser %}
+            <li><a href="/admin/">Panel administracyjny</a></li>
             {% endif %}
-          </li>
+            <li><a href="{% url 'logout' %}?next={% url 'landing-page' %}">Wyloguj</a></li>
         </ul>
-{% endblock %}
-{% block title %}
-      <div class="slogan container container--90">
-        <div class="slogan--item">
-          <h1>
+        {% else %}
+        <li><a href="{% url 'login' %}" class="btn btn--small btn--without-border">Zaloguj</a></li>
+        <li class="highlighted"><a href="{% url 'register' %}" class="btn btn--small btn--highlighted">Załóż konto</a></li>
+        {% endif %}
+    </li>
+</ul>
+{% endblock %} {% block title %}
+<div class="slogan container container--90">
+    <div class="slogan--item">
+        <h1>
             Oddaj rzeczy, których już nie chcesz<br />
             <span class="uppercase">potrzebującym</span>
-          </h1>
+        </h1>
 
-          <div class="slogan--steps">
+        <div class="slogan--steps">
             <div class="slogan--steps-title">Wystarczą 4 proste kroki:</div>
             <ul class="slogan--steps-boxes">
-              <li>
-                <div><em>1</em><span>Wybierz rzeczy</span></div>
-              </li>
-              <li>
-                <div><em>2</em><span>Spakuj je w worki</span></div>
-              </li>
-              <li>
-                <div><em>3</em><span>Wybierz fundację</span></div>
-              </li>
-              <li>
-                <div><em>4</em><span>Zamów kuriera</span></div>
-              </li>
+                <li>
+                    <div><em>1</em><span>Wybierz rzeczy</span></div>
+                </li>
+                <li>
+                    <div><em>2</em><span>Spakuj je w worki</span></div>
+                </li>
+                <li>
+                    <div><em>3</em><span>Wybierz fundację</span></div>
+                </li>
+                <li>
+                    <div><em>4</em><span>Zamów kuriera</span></div>
+                </li>
             </ul>
-          </div>
         </div>
-      </div>
-{% endblock %}
-
-{% block content %}
-    <section class="form--steps">
-      <div class="form--steps-instructions">
+    </div>
+</div>
+{% endblock %} {% block content %}
+<section class="form--steps">
+    <div class="form--steps-instructions">
         <div class="form--steps-container">
-          <h3>Ważne!</h3>
-          <p data-step="1" class="active">
-            Uzupełnij szczegóły dotyczące Twoich rzeczy. Dzięki temu będziemy
-            wiedzieć komu najlepiej je przekazać.
-          </p>
-          <p data-step="2">
-            Uzupełnij szczegóły dotyczące Twoich rzeczy. Dzięki temu będziemy
-            wiedzieć komu najlepiej je przekazać.
-          </p>
-          <p data-step="3">
-           Wybierz jedną, do
-            której trafi Twoja przesyłka.
-          </p>
-          <p data-step="4">Podaj adres oraz termin odbioru rzeczy.</p>
+            <h3>Ważne!</h3>
+            <p data-step="1" class="active">
+                Uzupełnij szczegóły dotyczące Twoich rzeczy. Dzięki temu będziemy wiedzieć komu najlepiej je przekazać.
+            </p>
+            <p data-step="2">
+                Uzupełnij szczegóły dotyczące Twoich rzeczy. Dzięki temu będziemy wiedzieć komu najlepiej je przekazać.
+            </p>
+            <p data-step="3">
+                Wybierz jedną, do której trafi Twoja przesyłka.
+            </p>
+            <p data-step="4">Podaj adres oraz termin odbioru rzeczy.</p>
         </div>
-      </div>
+    </div>
 
-      {% if user.is_authenticated %}
-      <div class="form--steps-container">
+    {% if user.is_authenticated %}
+    <div class="form--steps-container">
         <div class="form--steps-counter">Krok <span>1</span>/5</div>
 
         <form method="POST">
-          {% csrf_token %}
-          <!-- STEP 1: class .active is switching steps -->
-          <div data-step="1" class="active">
-            <h3>Zaznacz co chcesz oddać:</h3>
-            <div class="form-group form-group--checkbox">
-              {% for cat in category %}
-              <label data-categories="{{ cat.id }}">
+            {% csrf_token %}
+            <!-- STEP 1: class .active is switching steps -->
+            <div data-step="1" class="active">
+                <h3>Zaznacz co chcesz oddać:</h3>
+                <div class="form-group form-group--checkbox">
+                    {% for cat in category %}
+                    <label data-categories="{{ cat.id }}">
                 <input
                   type="checkbox"
                   name="categories"
@@ -90,125 +81,121 @@
                 <span class="checkbox"></span>
                 <span class="description"
                   >{{ cat.name }}</span>
-              </label>
-              {% endfor %}
+              </label> {% endfor %}
+                </div>
+
+                <div class="form-group form-group--buttons">
+                    <button type="button" class="btn next-step">Dalej</button>
+                </div>
             </div>
 
-            <div class="form-group form-group--buttons">
-              <button type="button" class="btn next-step">Dalej</button>
-            </div>
-          </div>
+            <!-- STEP 2 -->
+            <div data-step="2">
+                <h3>Podaj liczbę 60l worków, w które spakowałeś/aś rzeczy:</h3>
 
-          <!-- STEP 2 -->
-          <div data-step="2">
-            <h3>Podaj liczbę 60l worków, w które spakowałeś/aś rzeczy:</h3>
-
-            <div class="form-group form-group--inline">
-              <label>
+                <div class="form-group form-group--inline">
+                    <label>
                 Liczba 60l worków:
                 <input type="number" name="bags" step="1" min="1" />
               </label>
+                </div>
+
+                <div class="form-group form-group--buttons">
+                    <button type="button" class="btn prev-step">Wstecz</button>
+                    <button type="button" class="btn next-step" id="next">Dalej</button>
+                </div>
             </div>
 
-            <div class="form-group form-group--buttons">
-              <button type="button" class="btn prev-step">Wstecz</button>
-              <button type="button" class="btn next-step" id="next">Dalej</button>
-            </div>
-          </div>
-
-          <!-- STEP 3 -->
-          <div data-step="3">
-            <h3>Wybierz organizacje, której chcesz pomóc:</h3>
-            <div class="form-group form-group--checkbox">
-              {% for institution in institutions %}
-              <label data-category="{% for c in institution.category.all %}{{ c.id }}, {% endfor %}">
-                <input type="radio" name="organization" value="old" id="organizations" />
+            <!-- STEP 3 -->
+            <div data-step="3">
+                <h3>Wybierz organizacje, której chcesz pomóc:</h3>
+                <div class="form-group form-group--checkbox">
+                    {% for institution in institutions %}
+                    <label data-category="{% for c in institution.category.all %}{{ c.id }}, {% endfor %}">
+                <input type="radio" name="organization" value="{{institution.id}}" id="organizations" />
                 <span class="checkbox radio"></span>
                 <span class="description">
                   <div class="title" name="organization-name">{{ institution.name }}</div>
                   <div class="subtitle">{{ institution.description }}</div>
                 </span>
-              </label>
-              {% endfor %}
-            </div>
-
-            <div class="form-group form-group--buttons">
-              <button type="button" class="btn prev-step">Wstecz</button>
-              <button type="button" class="btn next-step">Dalej</button>
-            </div>
-          </div>
-
-          <!-- STEP 4 -->
-          <div data-step="4">
-            <h3>Podaj adres oraz termin odbioru rzecz przez kuriera:</h3>
-
-            <div class="form-section form-section--columns">
-              <div class="form-section--column">
-                <h4>Adres odbioru</h4>
-                <div class="form-group form-group--inline">
-                  <label> Ulica <input type="text" name="address" /> </label>
+              </label> {% endfor %}
                 </div>
 
-                <div class="form-group form-group--inline">
-                  <label> Miasto <input type="text" name="city" /> </label>
+                <div class="form-group form-group--buttons">
+                    <button type="button" class="btn prev-step">Wstecz</button>
+                    <button type="button" class="btn next-step">Dalej</button>
                 </div>
+            </div>
 
-                <div class="form-group form-group--inline">
-                  <label>
+            <!-- STEP 4 -->
+            <div data-step="4">
+                <h3>Podaj adres oraz termin odbioru rzecz przez kuriera:</h3>
+
+                <div class="form-section form-section--columns">
+                    <div class="form-section--column">
+                        <h4>Adres odbioru</h4>
+                        <div class="form-group form-group--inline">
+                            <label> Ulica <input type="text" name="address" /> </label>
+                        </div>
+
+                        <div class="form-group form-group--inline">
+                            <label> Miasto <input type="text" name="city" /> </label>
+                        </div>
+
+                        <div class="form-group form-group--inline">
+                            <label>
                     Kod pocztowy <input type="text" name="postcode" />
                   </label>
-                </div>
+                        </div>
 
-                <div class="form-group form-group--inline">
-                  <label>
+                        <div class="form-group form-group--inline">
+                            <label>
                     Numer telefonu <input type="phone" name="phone" />
                   </label>
-                </div>
-              </div>
+                        </div>
+                    </div>
 
-              <div class="form-section--column">
-                <h4>Termin odbioru</h4>
-                <div class="form-group form-group--inline">
-                  <label> Data <input type="date" name="data" /> </label>
-                </div>
+                    <div class="form-section--column">
+                        <h4>Termin odbioru</h4>
+                        <div class="form-group form-group--inline">
+                            <label> Data <input type="date" name="data" /> </label>
+                        </div>
 
-                <div class="form-group form-group--inline">
-                  <label> Godzina <input type="time" name="time" /> </label>
-                </div>
+                        <div class="form-group form-group--inline">
+                            <label> Godzina <input type="time" name="time" /> </label>
+                        </div>
 
-                <div class="form-group form-group--inline">
-                  <label>
+                        <div class="form-group form-group--inline">
+                            <label>
                     Uwagi dla kuriera
                     <textarea name="more_info" rows="5"></textarea>
                   </label>
+                        </div>
+                    </div>
                 </div>
-              </div>
+                <div class="form-group form-group--buttons">
+                    <button type="button" class="btn prev-step">Wstecz</button>
+                    <button type="button" class="btn next-step" id="confirm">Dalej</button>
+                </div>
             </div>
-            <div class="form-group form-group--buttons">
-              <button type="button" class="btn prev-step">Wstecz</button>
-              <button type="button" class="btn next-step" id="confirm">Dalej</button>
-            </div>
-          </div>
 
-          <!-- STEP 5 -->
-          <div data-step="5">
-            <h3>Podsumowanie Twojej darowizny</h3>
+            <!-- STEP 5 -->
+            <div data-step="5">
+                <h3>Podsumowanie Twojej darowizny</h3>
 
-            <div class="summary">
-              <div class="form-section">
-                <h4>Oddajesz:</h4>
-                <ul>
-                  <li>
-                    <span class="icon icon-bag"></span>
-                    <span class="summary--text"
-                      ></span
+                <div class="summary">
+                    <div class="form-section">
+                        <h4>Oddajesz:</h4>
+                        <ul>
+                            <li>
+                                <span class="icon icon-bag"></span>
+                                <span class="summary--text"></span
                     >
                   </li>
 
                   <li>
                     <span class="icon icon-hand"></span>
-                    <span class="summary--text"
-                      ></span
+                                <span class="summary--text"></span
                     >
                   </li>
                 </ul>

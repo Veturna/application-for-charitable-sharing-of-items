@@ -43,6 +43,9 @@ class AddDonation(View):
 
     def post(self, request):
         if request.user.is_authenticated:
+            all_category = Category.objects.all()
+            institutions = Institution.objects.all()
+            
             address = request.POST.get('address')
             city = request.POST.get('city')
             postcode = request.POST.get('postcode')
@@ -52,24 +55,27 @@ class AddDonation(View):
             more_info = request.POST.get('more_info')
             quantity = request.POST.get('bags')
             categories = request.POST.get('categories')
-            organization = request.POST.get('organization-name')
+            organization = request.POST.get('organization')
+            
             user = request.user
+            print(organization)
+            
+            institution = Institution.objects.get(pk=organization)
+        
 
-            institution = Institution.objects.get(name=organization)
-
-            donation = Donation.objects.create(quantity=quantity, address = address, phone_number=phone,
+            donation = Donation.objects.create(quantity=quantity, address = address, phone_number=phone, institution=institution,
                                                city=city, zip_code=postcode, pick_up_date = data, pick_up_time=time,
                                                pick_up_comment=more_info, user=user)
             donation.save()
 
-            for category in categories:
-                category = Category.objects.get(name=category)
-                donation.categories.add(category)
+            for category[0] in categories:
+                selected_category = Category.objects.get(pk=category)
+                donation.categories.add(selected_category)
 
             url = reverse('confirm')
             return redirect(url)
         else:
-            return render(request, "form.html")
+            return render(request, "form.html", {"user": request.user, "category": all_category, 'institutions': institutions})
 
 
 class Login(View):
