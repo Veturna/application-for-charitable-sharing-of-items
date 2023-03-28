@@ -302,15 +302,14 @@ document.addEventListener("DOMContentLoaded", function() {
         checkboxes.forEach(checkbox => {
             if (checkbox.checked) {
                 selectedCategories.push(checkbox.value)
-                console.error(selectedCategories)
             }
         })
 
         const bagsQuantity = document.querySelector('input[name="bags"]').value
-        console.error('ilość', bagsQuantity)
 
-        const organization = document.querySelector('input[name="organization-name"]:checked')
-        const selectedOrganization = organization ? organization.getAttribute("data-category") : null
+        const organization = document.querySelector('input[name="organization"]:checked')
+        const selectedOrganization = organization ? organization.parentElement.querySelector('[name="organization-name"]').textContent : null
+        console.log(selectedOrganization)
 
         const selectedStreet = document.querySelector('input[name="address"]').value
         const selectedCity = document.querySelector('input[name="city"]').value
