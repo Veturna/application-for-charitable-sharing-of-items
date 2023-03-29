@@ -57,8 +57,6 @@ class AddDonation(View):
             categories = request.POST.getlist('categories')
             organization = request.POST.get('organization')
             
-            print(categories)
-            
             user = request.user
             
             institution = Institution.objects.get(pk=organization)
