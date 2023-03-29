@@ -14,8 +14,8 @@
         <nav class="container container--70">
             {% block welcome %}
             <ul class="nav--actions">
+                {% if user.is_authenticated %} Witaj {{ user.username }}
                 <li class="logged-user">
-                    {% if user.is_authenticated %} Witaj {{ user.username }}
                     <ul class="dropdown">
                         <li><a href="{% url 'profile' %}">Profil</a></li>
                         <li><a href="#">Ustawienia</a></li>

@@ -1,31 +1,7 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block welcome %}
-<ul class="nav--actions">
-          <li class="logged-user">
-            {% if user.is_authenticated %}
-            Witaj {{ user.username }}
-            <ul class="dropdown">
-              <li><a href="{% url 'profile' %}">Profil</a></li>
-              <li><a href="#">Ustawienia</a></li>
-              {% if user.is_superuser %}
-              <li><a href="/admin/">Panel administracyjny</a></li>
-              {% endif %}
-              <li><a href="{% url 'logout' %}?next={% url 'landing-page' %}">Wyloguj</a></li>
-            </ul>
-            {% else %}
-            <li><a href="{% url 'login' %}" class="btn btn--small btn--without-border">Zaloguj</a></li>
-            <li class="highlighted"><a href="{% url 'register' %}" class="btn btn--small btn--highlighted">Załóż konto</a></li>
-            {% endif %}
-          </li>
-        </ul>
-{% endblock %}
-
-{% block content %}
-      <div class="slogan container container--90">
-          <h2>
-            Dziękujemy za przesłanie formularza Na maila prześlemy wszelkie
-            informacje o odbiorze.
-          </h2>
-      </div>
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="slogan container container--90">
+    <h2>
+        Dziękujemy za przesłanie formularza Na maila prześlemy wszelkie informacje o odbiorze.
+    </h2>
+</div>
 {% endblock %}
