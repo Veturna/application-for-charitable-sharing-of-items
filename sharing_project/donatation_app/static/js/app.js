@@ -277,7 +277,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     arrayCategory.splice(index, 1)
                 }
             }
-            console.log('kategoria:', arrayCategory)
         })
     })
 
@@ -301,7 +300,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         checkboxes.forEach(checkbox => {
             if (checkbox.checked) {
-                selectedCategories.push(checkbox.nextElementSibling.textContent)
+                selectedCategories.push(checkbox.nextElementSibling.nextElementSibling.textContent)
             }
         })
 
@@ -309,7 +308,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const organization = document.querySelector('input[name="organization"]:checked')
         const selectedOrganization = organization ? organization.parentElement.querySelector('[name="organization-name"]').textContent : null
-        console.log(selectedOrganization)
 
         const selectedStreet = document.querySelector('input[name="address"]').value
         const selectedCity = document.querySelector('input[name="city"]').value
