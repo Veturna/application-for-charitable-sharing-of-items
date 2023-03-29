@@ -54,7 +54,7 @@ class AddDonation(View):
             time = request.POST.get('time')
             more_info = request.POST.get('more_info')
             quantity = request.POST.get('bags')
-            categories = request.POST.get('categories')
+            categories = request.POST.getlist('categories')
             organization = request.POST.get('organization')
             
             print(categories)
@@ -128,7 +128,7 @@ class Profile(View):
         })
         donations = Donation.objects.filter(user=user)
 
-        return render(request, 'profile.html', {'user': user, 'form': form, 'donations':donations})
+        return render(request, 'profile.html', {'user': user, 'form': form, 'donations': donations})
 
 
 class AddDonationConfirmation(View):

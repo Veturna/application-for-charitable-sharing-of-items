@@ -1,23 +1,25 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block title %}
+{% extends 'base.html' %} {% load static %} {% block title %}
 <div class="slogan container container--90">
-        <div class="slogan--item">
-          <h1>
+    <div class="slogan--item">
+        <h1>
             Profil użytkownika {{user.first_name}}<br />
-          </h1>
-        </div>
-      </div>
-{% endblock %}
-{% block content %}
-{% csrf_token %}
-<h2>{{ form.as_p }}</h2>
+        </h1>
+    </div>
+</div>
+
+{% endblock %} {% block content %} {% csrf_token %}
+<h2>Dane użytkownika</h2>
+<h3>{{ form.as_p }}</h3>
 
 <h2>Przekazane dotacje</h2>
 {% for donation in donations %}
-<li>{{ donation.pk }}</li>
-<li>Ilość przekazanych worków: {{ donation.quantity }} z kategorii: {{ donation.categories.all }}</li>
-<li>Wsparta organizacja {{ donation.institution }}</li>
-<li>Data i godzina odbioru {{ donation.date }} - {{ donation.time }} </li>
-{% endfor %}
-{% endblock %}
+<h3>
+    <li>Ilość przekazanych worków: {{ donation.quantity }} z kategorii: {% for category in donation.categories.all %} {{ category.name }} {% endfor %}
+    </li>
+</h3>
+<h3>
+    <li>Wsparta organizacja: {{ donation.institution }}</li>
+</h3>
+<h3>
+    <li>Data i godzina odbioru: {{ donation.pick_up_date }} - {{ donation.pick_up_time }} </li>
+</h3><br> {% endfor %} {% endblock %}

@@ -301,7 +301,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         checkboxes.forEach(checkbox => {
             if (checkbox.checked) {
-                selectedCategories.push(checkbox.value)
+                selectedCategories.push(checkbox.nextElementSibling.textContent)
             }
         })
 
